@@ -41,11 +41,11 @@ The following steps document *one* simple and opinionated way to freeze a shiny 
 
 -   Rename the `.ico` as needed. There should be no need to edit the other files. You will only need to edit the `run.vbs` if 32-bit R is needed. In that case the text of the `run.vbs` script will be `R-Portable\App\R-Portable\bin\i386\R.exe` instead of `R-Portable\App\R-Portable\bin\x64\R.exe`.
 
--   Edit a copy of the `flight_proof.iss` Inno Setup script, or similar, and rename as needed to the application name.
+-   Download and install [Inno Setup](http://www.jrsoftware.org/isinfo.php). Then edit a copy of the `flight_proof.iss` Inno Setup script, or similar, and rename as needed to the application name.
 
--   In the `AppID` field, highlight all but the first curly brace, and under `Tools` click on the `Generate GUID` option. This will overwrite the section with a new GUID.
+-   Double-click on the `app_name.iss` file to open `Inno Setup`. In the `AppID` field, highlight all but the first curly brace, and under `Tools` click on the `Generate GUID` option. This will overwrite the section with a new GUID.
 
--   To create the executable click on `Build – Compile`. An executable installer will be created in your application directory.
+-   To create the application installer, click on `Build – Compile`. An executable installer will be created in your application directory.
 
 -   After compiling and installing the application, try running. In case the application fails to load, navigate to the `out.txt` folder in the App directory that the installer created, for example: `C:\data\Intertidal\Apps\FlightProof\out.txt`. The `out.txt` file will indicate any errors encountered and will identify any packages that are still not present...or that failed to load. Only one package at a time will fail, so in the past, before using the `pak` package, multiple iterations were typically needed to identify all missing packages.
 
