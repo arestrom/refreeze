@@ -32,7 +32,7 @@ The following steps document *one* simple and opinionated way to freeze shiny ap
 
 * Create a new shiny application in an RStudio project. Test thorougly to make sure everything works as intended. Include [validate()](https://shiny.rstudio.com/reference/shiny/1.0.4/validate.html) and [need()](https://shiny.rstudio.com/articles/validation.html) functions liberally to avoid the possibility your application may crash after it has been packaged as a standalone program. Crashes typically require that the offending R process be killed using Windows Task Manager before the program can be restarted...not ideal for end-users. In practice, this is exceedingly rare as long as basic best practices are followed.
 
-* I normally copy finalized shiny code intended to run standalone over to a separate applications directory. Create a new folder in your applications working directory. In my case this would be `C:\data\RStudio\Applications`. For the `flight_proof` application used as an example below, the path would be: `C:\data\RStudio\Applications\flight_proof`  
+* I normally copy finalized shiny code intended to run standalone over to a separate applications directory. Create a new folder in your applications working directory. In my case this would be `C:\Documents\RStudio\Applications`. For the `flight_proof` application used as an example below, the path would be: `C:\Documents\RStudio\Applications\flight_proof`  
 
 * Download the latest version of [R-Portable](https://sourceforge.net/projects/rportable/files/R-Portable/) to the new folder. Then double-click the (currently) `R-Portable_3.5.2.paf.exe` to run. This will create the `R-Portable` folder in your new application folder. No admin privileges are needed to install `R-Portable`.  
 
@@ -44,7 +44,7 @@ The following steps document *one* simple and opinionated way to freeze shiny ap
 
 * After opening the `library_install_pak.R` script in the `R-Portable` Rgui, highlight the relevant lines needed to install needed packages. Then click on `Run line or selection` icon. Enter `Yes` when asked to set up `pak` for initial use. You will be asked to say `Yes` on more time to install packages after they have been downloaded. You may need to scroll down in the R console occasionally to see progress as packages are installed.
 
-* Copy your `ui.R`, `server.R`, and `global.R` shiny scripts, along with any other scripts needed for your application, into a folder named `shiny` in the top-level directory of your application. For example: `C:\data\RStudio\Applications\flight_proof\shiny`. There should also be a `www` subfolder containing any images, rmarkdown .rmd files, etc. 
+* Copy your `ui.R`, `server.R`, and `global.R` shiny scripts, along with any other scripts needed for your application, into a folder named `shiny` in the top-level directory of your application. For example: `C:\Documents\RStudio\Applications\flight_proof\shiny`. There should also be a `www` subfolder containing any images, rmarkdown .rmd files, etc. 
 
 * Make sure and edit the `server.R` file to uncomment the `stopApp()` function at the very bottom of the `server.R` script. This is needed to make sure the `R.exe` is properly closed when the application exits. It is normally commented out during development. The function looks like this:
 
@@ -56,7 +56,7 @@ The following steps document *one* simple and opinionated way to freeze shiny ap
   })
 ```
 
-* The [refreeze](https://github.com/arestrom/refreeze) repository contains example materials needed for the next steps. Copy the `run.vbs`, `runShinyApp.R`, and `FlightProof.ico` from the repository into the top level of your app folder. You should also copy the `flight_proof.iss` script that will be needed to create the setup executable. I normally keep a copy of all application `.iss` scripts in the application parent directory, in my case `C:\data\RStudio\Applications`.  
+* The [refreeze](https://github.com/arestrom/refreeze) repository contains example materials needed for the next steps. Copy the `run.vbs`, `runShinyApp.R`, and `FlightProof.ico` from the repository into the top level of your app folder. You should also copy the `flight_proof.iss` script that will be needed to create the setup executable. I normally keep a copy of all application `.iss` scripts in the application parent directory, in my case `C:\Documents\RStudio\Applications`.  
 
 * Rename the `FlightProof.ico` as needed, or find another icon to use. There should be no need to edit the other files. You will only need to edit `run.vbs` if 32-bit R is needed. In that case the text of the `run.vbs` script will be `R-Portable\App\R-Portable\bin\i386\R.exe` instead of `R-Portable\App\R-Portable\bin\x64\R.exe`. 
 
@@ -70,7 +70,7 @@ The following steps document *one* simple and opinionated way to freeze shiny ap
 
 ### In case of failure  
 
-* If after installing the application, it crashes, or fails to load, navigate to the `out.txt` folder in the App directory that the installer created, for example: `C:\data\Intertidal\Apps\FlightProof\out.txt`. The `out.txt` file will log the first fatal error encountered. In the case of missing dependencies it will identify any packages that are still missing. Each missing dependency will trigger a crash, so in the past, before using the `pak` functions for library installation, multiple iterations were typically needed to identify all missing package dependecies.  
+* If after installing the application, it crashes, or fails to load, navigate to the `out.txt` folder in the App directory that the installer created, for example: `C:\Documents\Intertidal\Apps\FlightProof\out.txt`. The `out.txt` file will log the first fatal error encountered. In the case of missing dependencies it will identify any packages that are still missing. Each missing dependency will trigger a crash, so in the past, before using the `pak` functions for library installation, multiple iterations were typically needed to identify all missing package dependecies.  
 
 * In case the application crashes or fails to load, you will also most likely need to kill any R processes still active using Windows Task Manager. You will then need to fix the source of the crash, usually a missing package dependency, and recompile the application. 
 
