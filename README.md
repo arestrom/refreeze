@@ -1,19 +1,24 @@
 
-refreeze
-========
+Shiny.exe
+=========
 
-### Notes on how to create (*freeze*) a standalone shiny application
+#### Notes and resources for how to create (*freeze*) a standalone shiny application
+
+Introduction
+------------
 
 The [RStudio Shiny](https://shiny.rstudio.com/) web development framework provides a great set of tools to quickly create web applications for scientific and data management use. It is especially good for building user-friendly one-off applications to accomplish specific tasks such as exploring, analyzing or validating data...or producing estimates and reports.
 
-Often the main roadblock when creating shiny applications is not development, but deployment. Intended users are typically non-programmers, and may be uncomfortable running scripts. Within organizations, deploying small, non-standard, projects to a webserver may be difficult or impossible given the inevitable hurdles of IT bureaucracy, security issues, or procurement. When the intended user base is relatively small, creating a standalone program may be the simplest and fastest way to get needed tools into the hands of users. Especially whan those programs do not require the end-user to have administrative rights in order to install on their local machines.
+Often the main roadblock when creating shiny applications is not development, but deployment. Shiny webapps can always be run locally from the command line or [RStudio](https://www.rstudio.com/), but intended users are typically non-programmers, and may be uncomfortable running scripts. Deploying to low-cost services such as [shinyapps.io](https://www.shinyapps.io/) may not be an option if local databases need to be accessed. Within organizations, deploying small, non-standard, projects to a webserver may be difficult or impossible given the inevitable hurdles of IT bureaucracy, security issues, or procurement. When the intended user base is relatively small, creating a standalone program may be the simplest and fastest way to get needed tools into the hands of users. Especially whan those programs do not require the end-user to have administrative rights in order to install on their local machines.
 
-Unlike scripts that can be subject to errors as the underlying R engine and dependent package universe changes, a standalone application is frozen in time. It will always work as when first constructed. Executable installers cost essentially nothing to copy and distribute.
+Unlike scripts that can be subject to errors as the underlying R engine and dependent package universe changes, a standalone application is frozen in time. It will always work as when first constructed. Executable installers cost essentially nothing to copy and distribute. Scaling the user base is a non-issue.
 
-Procedure
----------
+Roadmap
+-------
 
-The following steps document *one* simple and opinionated way to freeze a shiny application that I have successfully used over the past few years. I am writing this mostly for myself to avoid forgetting the procedure and repeating common mistakes. It is based on this [blog post](http://blog.analytixware.com/2014/03/packaging-your-shiny-app-as-windows.html) from 2014 when the shiny framework was still in early development. Next steps are to test and document procedures on how to package up standalone shiny apps using [Electron](https://electronjs.org/) on the front-end. See: [r-shiny-electron](https://github.com/dirkschumacher/r-shiny-electron), [Rinno](https://ficonsulting.github.io/RInno/), [deploy-shiny-electron](https://www.travishinkelman.com/post/deploy-shiny-electron/), [electron-quick-start](https://github.com/ColumbusCollaboratory/electron-quick-start).
+The following steps document *one* simple and opinionated way to freeze shiny applications for local installs on Windows machines as standalone applications. I have successfully used this method since 2014 and am documenting the steps mostly for myself to avoid forgetting the procedure and repeating common mistakes. It is based on this [blog post](http://blog.analytixware.com/2014/03/packaging-your-shiny-app-as-windows.html) from 2014 when the shiny framework was still in early development. Next steps are to test and document procedures on how to package standalone shiny apps using [Electron](https://electronjs.org/) on the front-end. See: [r-shiny-electron](https://github.com/dirkschumacher/r-shiny-electron), [Rinno](https://ficonsulting.github.io/RInno/), [deploy-shiny-electron](https://www.travishinkelman.com/post/deploy-shiny-electron/), [electron-quick-start](https://github.com/ColumbusCollaboratory/electron-quick-start).
+
+### Procedure
 
 -   Create a new folder in your application working directory. In my case this would be `C:\data\RStudio\Applications`. For the `flight_proof` application used as an example below, the path would be: `C:\data\RStudio\Applications\flight_proof`
 
