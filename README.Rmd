@@ -20,7 +20,7 @@ options(tibble.print_min = 5, tibble.print_max = 5)
 
 The [RStudio Shiny](https://shiny.rstudio.com/) web development framework provides a great set of tools to quickly create web applications for scientific and data management use. It is especially good for building user-friendly one-off applications to accomplish specific tasks such as exploring, analyzing or validating data...or producing estimates and reports. 
 
-Often the main roadblock when creating shiny applications is not development, but deployment. Shiny webapps can always be run locally from the command line or [RStudio](https://www.rstudio.com/), but intended users are typically non-programmers, and may be uncomfortable running scripts. Deploying to low-cost services such as [shinyapps.io](https://www.shinyapps.io/) may not be an option if local databases need to be accessed. Within organizations, deploying small, non-standard, projects to a webserver may be difficult or impossible given the inevitable hurdles of IT bureaucracy, security issues, or procurement. When the intended user base is relatively small, creating a standalone program may be the simplest and fastest way to get needed tools into the hands of users. Especially when those programs do not require the end-user to have administrative rights in order to install on their local machines. 
+Often the main roadblock when creating shiny applications is not development, but deployment. Shiny webapps can always be run locally from the command line or [RStudio](https://www.rstudio.com/), but intended users are typically non-programmers, and may be uncomfortable running scripts. Deploying to low-cost services such as [shinyapps.io](https://www.shinyapps.io/) may not be an option if local databases need to be accessed. Within organizations, deploying small, non-standard projects to a webserver may be difficult or impossible given the inevitable hurdles of IT bureaucracy, security issues, or procurement. When the intended user base is relatively small, creating a standalone program may be the simplest and fastest way to get needed tools into the hands of users...especially when those programs do not require the end-user to have administrative rights in order to install on their local machines. 
 
 Unlike scripts that can be subject to errors as the underlying R engine and dependent package universe changes, a standalone application is frozen in time. It will always work as when first constructed. Executable installers cost essentially nothing to copy and distribute. Scaling the user base is a non-issue. 
 
@@ -30,7 +30,7 @@ The following steps document *one* simple and opinionated way to freeze shiny ap
 
 ### Project setup
 
-* Create a new shiny application in an RStudio project. Test thorougly to make sure everything works as intended. Include [validate()](https://shiny.rstudio.com/reference/shiny/1.0.4/validate.html) and [need()](https://shiny.rstudio.com/articles/validation.html) functions liberally to avoid the possibility your application may crash after it has been packaged as a standalone program. Crashes typically require that the offending R process be killed using Task Manager before the program can be restarted...not ideal for end-users. In practice, this is exceedingly rare as long as basic best practices are followed.
+* Create a new shiny application in an RStudio project. Test thorougly to make sure everything works as intended. Include [validate()](https://shiny.rstudio.com/reference/shiny/1.0.4/validate.html) and [need()](https://shiny.rstudio.com/articles/validation.html) functions liberally to avoid the possibility your application may crash after it has been packaged as a standalone program. Crashes typically require that the offending R process be killed using Windows Task Manager before the program can be restarted...not ideal for end-users. In practice, this is exceedingly rare as long as basic best practices are followed.
 
 * I normally copy finalized shiny code intended to run standalone over to a separate applications directory. Create a new folder in your applications working directory. In my case this would be `C:\data\RStudio\Applications`. For the `flight_proof` application used as an example below, the path would be: `C:\data\RStudio\Applications\flight_proof`  
 
@@ -58,7 +58,7 @@ The following steps document *one* simple and opinionated way to freeze shiny ap
 
 * The [refreeze](https://github.com/arestrom/refreeze) repository contains example materials needed for the next steps. Copy the `run.vbs`, `runShinyApp.R`, and `FlightProof.ico` from the repository into the top level of your app folder. You should also copy the `flight_proof.iss` script that will be needed to create the setup executable. I normally keep a copy of all application `.iss` scripts in the application parent directory, in my case `C:\data\RStudio\Applications`.  
 
-* Rename the `FlightProof.ico` as needed, or find another icon to use. There should be no need to edit the other files. You will only need to edit the `run.vbs` if 32-bit R is needed. In that case the text of the `run.vbs` script will be `R-Portable\App\R-Portable\bin\i386\R.exe` instead of `R-Portable\App\R-Portable\bin\x64\R.exe`. 
+* Rename the `FlightProof.ico` as needed, or find another icon to use. There should be no need to edit the other files. You will only need to edit `run.vbs` if 32-bit R is needed. In that case the text of the `run.vbs` script will be `R-Portable\App\R-Portable\bin\i386\R.exe` instead of `R-Portable\App\R-Portable\bin\x64\R.exe`. 
 
 ### Create Windows installer
 
@@ -70,8 +70,8 @@ The following steps document *one* simple and opinionated way to freeze shiny ap
 
 ### In case of failure  
 
-* If after installing the application, it crashes, or fails to load, navigate to the `out.txt` folder in the App directory that the installer created, for example: `C:\data\Intertidal\Apps\FlightProof\out.txt`. The `out.txt` file will log the first fatal error encountered. In the case of missing dependencies it will identify any packages that are still missing. Each missing dependency will trigger a crash, so in the past, before using the `pak` functions for library installation, multiple iterations were typically needed to identify all missing packages.  
+* If after installing the application, it crashes, or fails to load, navigate to the `out.txt` folder in the App directory that the installer created, for example: `C:\data\Intertidal\Apps\FlightProof\out.txt`. The `out.txt` file will log the first fatal error encountered. In the case of missing dependencies it will identify any packages that are still missing. Each missing dependency will trigger a crash, so in the past, before using the `pak` functions for library installation, multiple iterations were typically needed to identify all missing package dependecies.  
 
-* In case the application crashes or fails to load, you will also most likely need to kill any R processes still active using task manager. You will then need to fix the source of the crash, usually a missing package dependency, and recompile the application. 
+* In case the application crashes or fails to load, you will also most likely need to kill any R processes still active using Windows Task Manager. You will then need to fix the source of the crash, usually a missing package dependency, and recompile the application. 
 
 
