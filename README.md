@@ -28,7 +28,7 @@ The following steps document *one* simple and opinionated way to freeze shiny ap
 
 -   If a 32-bit version of R is needed to run your application, for example when a 32-bit MS Access database needs to be accessible, do not click `Yes` to the `Run R Portable` checkbox during the installation process...as the default assumes you want 64-bit R.
 
--   Install needed libraries: Normally you would install any needed packages by running the `Rgui.exe` located at `R-Portable\App\R-Portable\bin\x64`. For the less common cases where 32-bit R is needed I normally navigate to the `R-Portable\App\R-Portable\bin\i386` folder and then click on `Rgui.exe` to open the RGUI. I then install any libraries using 32-bit R. It may not make any difference either way.
+-   Install needed R packages, and package dependencies. Normally you would install any required packages by running the `Rgui.exe` located at `R-Portable\App\R-Portable\bin\x64`. For the less common cases where 32-bit R is needed I normally navigate to the `R-Portable\App\R-Portable\bin\i386` folder and then click on `Rgui.exe` to open the Rgui. I then install any libraries using 32-bit R. It may not make any difference either way.
 
 -   Using the Rgui (whether 64-bit or 32-bit) open the `library_install_pak.R` script located in the [refreeze](https://github.com/arestrom/refreeze) repository. A copy is also normally kept in the `RStudio\Applications` folder. Edit as needed to add required libraries. This script uses the fabulous new [pak](https://cran.r-project.org/web/packages/pak/index.html) package to ensure all dependencies are installed along with the primary libraries in your `library()` calls. Prior to using the `pak` functions, getting all required libraries loaded could be a long and tedious process of testing, failing, and installing yet another undetected package dependency.
 
@@ -36,7 +36,7 @@ The following steps document *one* simple and opinionated way to freeze shiny ap
 
 -   Copy your `ui.R`, `server.R`, and `global.R` shiny scripts, along with any other scripts needed for your application, into a folder named `shiny` in the top-level directory of your application. For example: `C:\data\RStudio\Applications\flight_proof\shiny`. There should also be a `www` subfolder containing any images, rmarkdown .rmd files, etc.
 
--   Make sure and edit the `server.R` file to uncomment the `stopApp()` function at the very bottom of the `server.R` script. This is needed to make sure the `R.exe` is properly closed when the application exits. The function looks like this:
+-   Make sure and edit the `server.R` file to uncomment the `stopApp()` function at the very bottom of the `server.R` script. This is needed to make sure the `R.exe` is properly closed when the application exits. It is normally commented out during development. The function looks like this:
 
 ``` r
 # close the R session when the browser closes
@@ -54,7 +54,7 @@ The following steps document *one* simple and opinionated way to freeze shiny ap
 
 -   Download and install [Inno Setup](http://www.jrsoftware.org/isinfo.php). Then edit a copy of the `flight_proof.iss` Inno Setup script, and rename as needed to your new application name, for example, `app_name.iss`.
 
--   Double-click on the `app_name.iss` script to open `Inno Setup`. In the `AppID` field, highlight all but the first curly brace, and under `Tools` click on the `Generate GUID` option. This will overwrite the section with a new GUID. Edit the other fields as needed to specify things such as the application name and version number, the source directory for the application files, and the destination directory for the setup executable. Make sure that the `PrivilegesRequired` field is set to `none`. This will ensure that end-users can run the setup executable without needing administrative privileges. In practice I have found that the setup dialogue may still ask for an administrative login in order to run the installer, but your normal login account name and password will work.
+-   Double-click on the `app_name.iss` script to open the `Inno Setup` program. In the `AppID` field, highlight all but the first curly brace, and under `Tools` click on the `Generate GUID` option. This will overwrite the section with a new GUID. Every time you create a new version, a new GUID should be generated. Edit the other fields as needed to specify things such as the application name and version number, the source directory for the application files, and the destination directory for the setup executable. Make sure that the `PrivilegesRequired` field is set to `none`. This will ensure that end-users can run the setup executable without needing administrative privileges. In practice I have found that the setup dialogue may still ask for an administrative login in order to run the installer, but your normal login account name and password will work.
 
 -   To create the application setup installer, click on `Build – Compile`. This will bundle up all materials needed for you application and create an executable installer in your application directory. Your application, along with the current version of R and all needed packages, are now frozen in time.
 
