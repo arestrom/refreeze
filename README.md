@@ -27,12 +27,12 @@ The following steps document *one* simple and opinionated way to freeze a shiny 
 
 -   After opening the `library_install_pak.R` script in the `R-Portable` Rgui, highlight the relevant lines needed to install needed packages. Then click on `Run line or selection` icon. Enter `Yes` when asked to set up `pak` for initial use. You will be asked to say `Yes` on more time to install packages after they have been downloaded. You may need to click in the R console to see progress as packages are installed.
 
--   Copy your `ui.R`, `server.R`, and `global.R` scripts along with any other needed scripts needed for your application into a folder named `shiny` in the top-level directory of your application. For example: `C:\data\RStudio\Applications\flight_proof\shiny`. There should also be a `www` subfolder containing any images, rmarkdown .rmd files, etc.
+-   Copy your `ui.R`, `server.R`, and `global.R` scripts along with any other scripts needed for your application into a folder named `shiny` in the top-level directory of your application. For example: `C:\data\RStudio\Applications\flight_proof\shiny`. There should also be a `www` subfolder containing any images, rmarkdown .rmd files, etc.
 
 -   Make sure and edit the `server.R` file to uncomment the `stopApp()` function at the very bottom of the `server.R` script. This is needed to make sure the `R.exe` is properly closed when the application exits. The function looks like this:
 
 ``` r
-# close the R session when Chrome closes
+# close the R session when the browser closes
   session$onSessionEnded(function() {
     stopApp()
     q("no")
