@@ -30,7 +30,7 @@ The following steps document *one* simple and opinionated way to freeze shiny ap
 
 ### Project setup
 
-* Create a new shiny application in an RStudio project. Test thorougly to make sure everything works as intended. Include [validate()](https://shiny.rstudio.com/reference/shiny/1.0.4/validate.html) and [need()](https://shiny.rstudio.com/articles/validation.html) functions liberally to avoid the possibility your application may crash after it has been packaged as a standalone program. Crashes typically require that the offending R process is killed using Task Manager before the program can be restarted...not ideal for end-users.
+* Create a new shiny application in an RStudio project. Test thorougly to make sure everything works as intended. Include [validate()](https://shiny.rstudio.com/reference/shiny/1.0.4/validate.html) and [need()](https://shiny.rstudio.com/articles/validation.html) functions liberally to avoid the possibility your application may crash after it has been packaged as a standalone program. Crashes typically require that the offending R process be killed using Task Manager before the program can be restarted...not ideal for end-users. In practice, this is exceedingly rare as long as basic best practices are followed.
 
 * I normally copy finalized shiny code intended to run standalone over to a separate applications directory. Create a new folder in your applications working directory. In my case this would be `C:\data\RStudio\Applications`. For the `flight_proof` application used as an example below, the path would be: `C:\data\RStudio\Applications\flight_proof`  
 
