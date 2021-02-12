@@ -52,7 +52,7 @@ See:
 
 ### Project setup
 
-  - Create a new shiny application in an RStudio project. Test thorougly
+-   Create a new shiny application in an RStudio project. Test thorougly
     to make sure everything works as intended. Include
     [validate()](https://shiny.rstudio.com/reference/shiny/1.0.4/validate.html)
     and [need()](https://shiny.rstudio.com/articles/validation.html)
@@ -63,14 +63,14 @@ See:
     for end-users. In practice, this is exceedingly rare as long as
     basic best practices are followed.
 
-  - I normally copy finalized shiny code intended to run standalone over
+-   I normally copy finalized shiny code intended to run standalone over
     to a separate applications directory. Create a new folder in your
     applications working directory. In my case this would be
     `C:\Documents\RStudio\Apps`. For the `flight_proof` application used
     as an example below, the path would be:
     `C:\Documents\RStudio\Apps\flight_proof`
 
-  - Download the latest *suitable* version of
+-   Download the latest *suitable* version of
     [R-Portable](https://sourceforge.net/projects/rportable/files/R-Portable/)
     to the new folder. Then double-click the (currently)
     `R-Portable_3.6.3.paf.exe` to run. This will create the `R-Portable`
@@ -80,12 +80,12 @@ See:
     issues with the Rcpp package. Consequently, until an newer version
     of R-Portable is released, use the one listed above.
 
-  - If a 32-bit version of R is needed to run your application, for
+-   If a 32-bit version of R is needed to run your application, for
     example when a 32-bit MS Access database needs to be accessible, do
     not click `Yes` to the `Run R Portable` checkbox during the
     installation process…as the default assumes you want 64-bit R.
 
-  - Install needed R packages, and package dependencies. Normally you
+-   Install needed R packages, and package dependencies. Normally you
     would install any required packages by running the `Rgui.exe`
     located at `R-Portable\App\R-Portable\bin\x64`. For the less common
     cases where 32-bit R is needed I normally navigate to the
@@ -93,7 +93,7 @@ See:
     `Rgui.exe` to open the Rgui. I then install any needed packages
     using 32-bit R. It may not make any difference either way.
 
-  - Using the Rgui (whether 64-bit or 32-bit) open the
+-   Using the Rgui (whether 64-bit or 32-bit) open the
     `library_install.R` script located in the
     [refreeze](https://github.com/arestrom/refreeze) repository. You
     will also need the `find_package_dependencies.R` script to do a deep
@@ -103,20 +103,18 @@ See:
     edit the package installation script as needed to add required
     libraries.
 
-  - Copy your `ui.R`, `server.R`, and `global.R` shiny scripts, or any
+-   Copy your `ui.R`, `server.R`, and `global.R` shiny scripts, or any
     other scripts needed for your application, into a folder named
     `shiny` in the top-level directory of your application. For example:
     `C:\Documents\RStudio\Apps\flight_proof\shiny`. There should also be
     a `www` subfolder containing any images, rmarkdown .rmd files, etc.,
     directly under the `shiny` folder.
 
-  - Make sure and edit the `server.R` file to uncomment the `stopApp()`
+-   Make sure and edit the `server.R` file to uncomment the `stopApp()`
     function at the very bottom of the `server.R` script. This is needed
     to make sure the `R.exe` is properly closed when the application
     exits. It is normally commented out during development. The function
     looks like this:
-
-<!-- end list -->
 
 ``` r
 # close the R session when the browser closes
@@ -126,7 +124,7 @@ See:
   })
 ```
 
-  - The [refreeze](https://github.com/arestrom/refreeze) repository
+-   The [refreeze](https://github.com/arestrom/refreeze) repository
     contains example materials needed for the next steps. Copy the
     `run.vbs`, `runShinyApp.R`, and `FlightProof.ico` from the
     repository into the top level of your app folder. You should also
@@ -135,7 +133,7 @@ See:
     scripts in the applications parent directory, in my case
     `C:\Documents\RStudio\Apps`.
 
-  - Rename the `FlightProof.ico` as needed, or find another icon to use.
+-   Rename the `FlightProof.ico` as needed, or find another icon to use.
     There should be no need to edit the other files. You will only need
     to edit `run.vbs` if 32-bit R is needed. In that case the text of
     the `run.vbs` script will be
@@ -144,12 +142,12 @@ See:
 
 ### Create Windows installer
 
-  - Download and install [Inno
+-   Download and install [Inno
     Setup](http://www.jrsoftware.org/isinfo.php). Then edit a copy of
     the `flight_proof.iss` Inno Setup script, and rename as needed to
     your new application name, for example, `app_name.iss`.
 
-  - Double-click on the `app_name.iss` script to open the `Inno Setup`
+-   Double-click on the `app_name.iss` script to open the `Inno Setup`
     program. In the `AppID` field, highlight all but the first curly
     brace, and under `Tools` click on the `Generate GUID` option. This
     will overwrite the section with a new GUID. Every time you create a
@@ -164,15 +162,15 @@ See:
     the installer, but your normal login account name and password will
     work.
 
-  - To create the application setup installer, click on `Build –
-    Compile`. This will bundle up all materials needed for you
+-   To create the application setup installer, click on
+    `Build – Compile`. This will bundle up all materials needed for you
     application and create an executable installer in your application
     directory. Your application, along with the current version of R and
     all needed packages, are now frozen in time.
 
 ### Connecting to databases
 
-  - When needing to connect to databases, providing connection
+-   When needing to connect to databases, providing connection
     credentials requires special handling. A secure and relatively
     foolproof method is to use the `odbc` package, and then set up each
     user with a DSN. This can be done by typing `odbc` into the Windows
@@ -182,34 +180,31 @@ See:
     also need to have the [PostgreSQL ODBC
     driver](https://odbc.postgresql.org/) installed on your computer.
 
-  - If you are trying to connect to a `PostgreSQL` database, my current
+-   If you are trying to connect to an `PostgreSQL` database, my current
     favorite method is to use the `RPostgres` package. This may change
     in the future, but for now it provides better handling of uuids and
     odd text encodings. It can also be much faster when writing large
     files. `RPostgres` includes it’s own driver, so no separate driver
     needs to be installed.
 
-  - When connecting via `RPostgres` in `RStudio` one way to provide
-    credentials is enter the values in the `.Renviron` file and use the
-    `Sys.getenv()` function to pull them out. But this will not work
-    with the current standalone setup outlined above. It may be
-    possible, but so far I have not figured out how. It’s easy to change
-    the flags in the `run.vbs` file from `--vanilla` (does not read
-    `.Renviron`) to one where the `.Renviron` is read, but the path to
-    `HOME` is slightly different when running from `R.exe` in batch
-    mode. If anyone knows how to get `R.exe` to read the correct path
-    and return manually entered credentials (other stuff like “USERNAME”
-    or “HOME” is properly read), I would love to know.
-
-  - For now I am focusing on using the
-    [shinyauthr](https://github.com/PaulC91/shinyauthr) package to
-    manually enter passwords via the interface. This avoids having to
-    hard-code credentials anywhere, and is probably the next best option
-    to using DSNs.
+-   When connecting via `RPostgres` or other database drivers using
+    `RStudio`, a common way to provide connection credentials such as
+    `host`, `username` or `password`, is to enter the values in an
+    `.Renviron` file. You can then use the `Sys.getenv()` function to
+    pull them out. To make this work with `R-Portable` requires some
+    customization. The simplest method is to place the `.Renviron` file
+    in the `R_HOME` path of your `R-Portable` installation. Then add the
+    following line in your global.R file:
+    `readRenviron("C:/data/Apps/BaseTest/R-Portable/App/R-Portable/.Renviron")`.
+    Note that the path includes the name of your application. You can
+    then use `Sys.getenv()` to pull out any of the variables listed in
+    the `.Renviron` file. This will work despite the fact that the
+    `run.vbs` file invokes `R.exe` using the `--vanilla` flag, which
+    instructs R not to read the `.Renviron` file.
 
 ### In case of failure
 
-  - If after installing the application, it crashes, or fails to load,
+-   If after installing the application, it crashes, or fails to load,
     navigate to the `out.txt` folder in the App directory that the
     installer created, for example:
     `C:\Documents\Intertidal\Apps\FlightProof\out.txt`. The `out.txt`
@@ -220,7 +215,7 @@ See:
     multiple iterations were typically needed to identify all missing
     package dependencies. Hopefully, this will now be a rare event.
 
-  - In case the application crashes or fails to load, you will also most
+-   In case the application crashes or fails to load, you will also most
     likely need to kill any R processes still active using Windows Task
     Manager. You will then need to fix the source of the crash, usually
     a missing package dependency, and recompile the application.
