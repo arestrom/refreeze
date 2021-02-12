@@ -195,7 +195,7 @@ See:
     customization. The simplest method is to place the `.Renviron` file
     in the `R_HOME` path of your `R-Portable` installation. Then add the
     following line in your global.R file:
-    `readRenviron("C:/data/Apps/BaseTest/R-Portable/App/R-Portable/.Renviron")`.
+    `readRenviron("C:/data/Apps/FlightProof/R-Portable/App/R-Portable/.Renviron")`.
     Note that the path includes the name of your application. You can
     then use `Sys.getenv()` to pull out any of the variables listed in
     the `.Renviron` file. This will work despite the fact that the
