@@ -209,7 +209,7 @@ See:
     using the `keyring` package. For Windows users the credentials will
     then be stored as encrypted values in the Windows Credential
     Manager. For an example of how this can be implemented using
-    standalone Windows Apps, please see the `Chehalis` and `MarSS`
+    standalone Windows apps, please see the `Chehalis` and `MarSS`
     repositories. Details can be found in the `global.R`, `server.R`,
     and files in the `connect` folder.
 
