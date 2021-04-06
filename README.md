@@ -187,6 +187,8 @@ See:
     files. `RPostgres` includes it’s own driver, so no separate driver
     needs to be installed.
 
+#### Storing database connection credentials
+
 -   When connecting via `RPostgres` or other database drivers using
     `RStudio`, a common way to provide connection credentials such as
     `host`, `username` or `password`, is to enter the values in an
@@ -201,6 +203,15 @@ See:
     the `.Renviron` file. This will work despite the fact that the
     `run.vbs` file invokes `R.exe` using the `--vanilla` flag, which
     instructs R not to read the `.Renviron` file.
+
+-   A safer method to store credentials is to use your operating
+    system’s credential manager. This functionality can be accessed
+    using the `keyring` package. For Windows users the credentials will
+    then be stored as encrypted values in the Windows Credential
+    Manager. For an example of how this can be implemented using
+    standalone Windows Apps, please see the `Chehalis` and `MarSS`
+    repositories. Details can be found in the `global.R`, `server.R`,
+    and files in the `connect` folder.
 
 ### In case of failure
 
